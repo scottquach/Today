@@ -20,7 +20,7 @@
             app:layout_constraintTop_toTopOf="parent"/>
 
     <Button
-            android:text="Button"
+            android:text="Create"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/button_create"
