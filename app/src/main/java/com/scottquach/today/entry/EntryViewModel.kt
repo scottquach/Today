@@ -1,13 +1,13 @@
 package com.scottquach.today.entry
 
 import androidx.lifecycle.ViewModel;
-import com.scottquach.today.models.Highlight
+import com.scottquach.today.room.Highlight
 
 class EntryViewModel : ViewModel() {
 
-    fun createHighlight(value: String, goal: String) {
-        val highlight = Highlight(value, goal)
+    private val repository = EntryRepository()
 
+    fun createHighlight(value: String, goalId: Int) {
+        repository.insertNewHighlight(Highlight(value, goalId))
     }
-
 }

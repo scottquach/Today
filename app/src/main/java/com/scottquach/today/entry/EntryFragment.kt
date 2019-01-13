@@ -32,7 +32,7 @@ class EntryFragment : Fragment() {
         viewModel = ViewModelProviders.of(this).get(EntryViewModel::class.java)
 
         button_create?.setOnClickListener {
-            viewModel.createHighlight(edit_entry.text.toString(), "test goal");
+            viewModel.createHighlight(edit_entry.text.toString(), 123)
         }
     }
 

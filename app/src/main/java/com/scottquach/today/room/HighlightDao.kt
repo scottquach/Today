@@ -8,13 +8,13 @@ import androidx.room.Query
 
 @Dao
 interface HighlightDao {
-    @Query("SELECT * FROM highlight")
-    fun getAll(): LiveData<Highlight>
+    @Query("SELECT * FROM highlights")
+    fun getAll(): LiveData<List<Highlight>>
 
-    @Query("SELECT * FROM highlight WHERE id = :highlightId")
+    @Query("SELECT * FROM highlights WHERE id = :highlightId")
     fun getById(highlightId: Int): LiveData<Highlight>
 
-    @Query("SELECT * FROM highlight WHERE goalId = :goalId")
+    @Query("SELECT * FROM highlights WHERE goal_id = :goalId")
     fun getByGoal(goalId: Int): LiveData<List<Highlight>>
 
     @Insert
