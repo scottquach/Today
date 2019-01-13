@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/mobile_navigation"
+            app:startDestination="@id/destination_home">
+
+    <fragment
+            android:id="@+id/destination_entry"
+            android:name="com.scottquach.today.entry.EntryFragment"
+            android:label="entry_fragment"
+            tools:layout="@layout/entry_fragment">
+        <action
+                android:id="@+id/action_destination_entry_to_destination_home"
+                app:destination="@id/destination_home"/>
+    </fragment>
+    <fragment
+            android:id="@+id/destination_home"
+            android:name="com.scottquach.today.home.HomeFragment"
+            android:label="home_fragment"
+            tools:layout="@layout/home_fragment">
+        <action
+                android:id="@+id/action_destination_home_to_destination_settings"
+                app:destination="@id/destination_settings"/>
+        <action
+                android:id="@+id/action_destination_home_to_destination_entry2"
+                app:destination="@id/destination_entry"/>
+    </fragment>
+    <fragment
+            android:id="@+id/destination_settings"
+            android:name="com.scottquach.today.settings.SettingsFragment"
+            android:label="settings_fragment"
+            tools:layout="@layout/settings_fragment"/>
+</navigation>
