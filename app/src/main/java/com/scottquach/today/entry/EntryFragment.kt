@@ -35,5 +35,4 @@ class EntryFragment : Fragment() {
             viewModel.createHighlight(edit_entry.text.toString(), 123)
         }
     }
-
 }
