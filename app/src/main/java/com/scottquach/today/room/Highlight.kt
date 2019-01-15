@@ -13,7 +13,7 @@ data class Highlight(
     @ColumnInfo var value: String,
     @ColumnInfo var status: HighlightStatus = HighlightStatus.INCOMPLETE,
     @ColumnInfo var created: Date = Date(),
-    @ColumnInfo(name = "goal_id") var goalId: Int
+    @ColumnInfo(name = "goal_id") var goalId: Int?
 ) {
-    constructor(_value: String, _goalId: Int): this(null, value = _value, goalId = _goalId)
+    constructor(_value: String, _goalId: Int?): this(null, value = _value, goalId = _goalId)
 }

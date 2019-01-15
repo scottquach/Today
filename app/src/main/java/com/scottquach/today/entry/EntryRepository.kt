@@ -10,6 +10,9 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
 
+/**
+ * Repository for the EntryViewModel
+ */
 class EntryRepository {
 
     private val highlightDbHelper by lazy {
