@@ -8,8 +8,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
+import androidx.navigation.findNavController
 import com.scottquach.today.R
 import com.scottquach.today.databinding.EntryFragmentBinding
+import timber.log.Timber
 
 /**
  * Provides UI for creating a new highlight and assigning that highlight to a goal
@@ -36,5 +39,11 @@ class EntryFragment : Fragment() {
             this.setLifecycleOwner(this@EntryFragment)
             this.viewmodel = viewModel
         }
+
+        viewModel.events.observe(this, Observer {
+            if (!it.hasBeenHandled && it.peekContent() == EntryRepository.Events.INSERTED) {
+                view!!.findNavController().navigate(R.id.action_destination_entry_to_destination_home)
+            }
+        })
     }
 }

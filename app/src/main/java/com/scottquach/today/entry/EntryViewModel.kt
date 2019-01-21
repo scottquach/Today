@@ -10,12 +10,15 @@ class EntryViewModel : ViewModel() {
     private val repository: EntryRepository = EntryRepository()
     val highlightTextValue = MutableLiveData<String>("")
 
+    val events = repository.events
+
     fun createHighlightClick() {
         Timber.d("Crate highlight clicked %s", highlightTextValue.value)
         if (entryIsValid()) {
             repository.insertNewHighlight(Highlight(highlightTextValue.value!!, null))
         }
     }
+
 
     /**
      * Returns true if the user entry is valid for creating a highlight

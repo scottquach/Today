@@ -8,7 +8,7 @@ import androidx.room.Query
 
 @Dao
 interface HighlightDao {
-    @Query("SELECT * FROM highlights")
+    @Query("SELECT * FROM highlights ORDER BY created")
     fun getAll(): LiveData<List<Highlight>>
 
     @Query("SELECT * FROM highlights WHERE id = :highlightId")
@@ -17,9 +17,12 @@ interface HighlightDao {
     @Query("SELECT * FROM highlights WHERE goal_id = :goalId")
     fun getByGoal(goalId: Int): LiveData<List<Highlight>>
 
+    @Query("SELECT * FROM highlights WHERE date(datetime(created / 1000, 'unixepoch')) = date('now')")
+    fun getToday(): LiveData<Highlight>
+
     @Insert
-    fun insertAll(vararg highlights: Highlight)
+    fun insert(vararg highlights: Highlight)
 
     @Delete
-    fun delete(highlight: Highlight)
+    fun delete(vararg highlights: Highlight)
 }

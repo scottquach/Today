@@ -12,7 +12,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:padding="8dp"
-            app:layout_anchor="@+id/textView">
+            app:layout_anchor="@+id/button_nav_create">
 
         <TextView
                 android:layout_width="wrap_content"
@@ -27,7 +27,7 @@
             android:layout_margin="16dp"
             android:textSize="30sp"
             android:textStyle="bold"
-            android:id="@+id/textView"/>
+            android:id="@+id/button_nav_create"/>
 
     <com.google.android.material.button.MaterialButton
             android:text="Create highlight"
@@ -36,6 +36,6 @@
             android:layout_gravity="bottom"
             android:id="@+id/button_create"
             app:layout_anchorGravity="right|bottom"
-            app:layout_anchor="@+id/textView"/>
+            app:layout_anchor="@+id/button_nav_create"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

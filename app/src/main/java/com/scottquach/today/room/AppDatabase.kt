@@ -12,12 +12,14 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun highlightDao(): HighlightDao
 
     companion object {
-        private var INSTANCE: AppDatabase? = null
-        fun getDatabase( context: Context): AppDatabase {
-            if (INSTANCE == null) {
-                INSTANCE = Room.databaseBuilder(context, AppDatabase::class.java, "app_database").build()
+        private var instance: AppDatabase? = null
+        @Synchronized fun getInstance(context: Context): AppDatabase {
+            if (instance == null) {
+                instance = Room.databaseBuilder(context, AppDatabase::class.java, "app_database")
+                    .fallbackToDestructiveMigration()
+                    .build()
             }
-            return INSTANCE as AppDatabase
+            return instance as AppDatabase
         }
     }
 }
