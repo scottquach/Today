@@ -1,6 +1,5 @@
 package com.scottquach.today.entry
 
-import android.app.Activity
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -10,8 +9,10 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.scottquach.today.R
 import com.scottquach.today.databinding.EntryFragmentBinding
+import kotlinx.android.synthetic.main.entry_fragment.*
 import timber.log.Timber
 
 /**
@@ -29,21 +30,26 @@ class EntryFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.entry_fragment, container, false)
+        viewModel = ViewModelProviders.of(this).get(EntryViewModel::class.java)
+        val binding = DataBindingUtil.inflate<EntryFragmentBinding>(inflater,R.layout.entry_fragment, container, false).apply {
+            setLifecycleOwner(this@EntryFragment)
+            this.viewmodel = viewmodel
+        }
+        return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(EntryViewModel::class.java)
-        DataBindingUtil.setContentView<EntryFragmentBinding>(activity as Activity, R.layout.entry_fragment).apply {
-            this.setLifecycleOwner(this@EntryFragment)
-            this.viewmodel = viewModel
-        }
 
         viewModel.events.observe(this, Observer {
+            Timber.d("observer called ${it.peekContent()}")
             if (!it.hasBeenHandled && it.peekContent() == EntryRepository.Events.INSERTED) {
-                view!!.findNavController().navigate(R.id.action_destination_entry_to_destination_home)
+                findNavController().navigate(R.id.action_entryFragment_to_homeFragment)
             }
         })
+
+        button_create.setOnClickListener {
+            viewModel.createHighlight(edit_entry.text.toString())
+        }
     }
 }

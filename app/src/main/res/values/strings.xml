@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Today</string>
+    <string name="entry_title">Create Today\'s Highlight</string>
 </resources>
