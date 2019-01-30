@@ -20,6 +20,4 @@ class HomeRepository() {
         get() = _todaysHighlight
     val events: LiveData<Event<EntryRepository.Events>>
         get() = _events
-
-
 }
