@@ -43,7 +43,7 @@ class EntryFragment : Fragment() {
 
         viewModel.events.observe(this, Observer {
             Timber.d("observer called ${it.peekContent()}")
-            if (!it.hasBeenHandled && it.peekContent() == EntryRepository.Events.INSERTED) {
+            if (it.getContentIfNotHandled() == EntryRepository.Events.INSERTED) {
                 findNavController().navigate(R.id.action_entryFragment_to_homeFragment)
             }
         })

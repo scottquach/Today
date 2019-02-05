@@ -30,11 +30,13 @@ class OverviewRecyclerAdapter: RecyclerView.Adapter<OverviewRecyclerAdapter.High
     }
 
     inner class HighlightHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
-        private val textDate = itemView.findViewById<TextView>(R.id.text_date)
+        private val textDate = itemView.findViewById<TextView>(R.id.text_created)
         private val textHighlight = itemView.findViewById<TextView>(R.id.text_highlight)
 
         fun bind(highlight: Highlight) {
-            textDate.text = highlight.created.toString()
+//            val dtf = DateTimeFormat.forPattern("MMMM d YYYY")
+//            val created = DateTime(highlight.created)
+//            textDate.text = dtf.print(highlight.created)
             textHighlight.text = highlight.value
         }
     }
