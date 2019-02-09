@@ -31,7 +31,7 @@ class HomeFragment : Fragment() {
         viewModel = ViewModelProviders.of(this)[HomeViewModel::class.java]
         val binding =
             DataBindingUtil.inflate<HomeFragmentBinding>(inflater, R.layout.home_fragment, container, false).apply {
-                setLifecycleOwner(this@HomeFragment)
+                lifecycleOwner = this@HomeFragment
                 this.viewmodel = viewModel
             }
         return binding.root
@@ -69,7 +69,7 @@ class HomeFragment : Fragment() {
     private inner class ViewPagerStack : ViewPager.PageTransformer {
         override fun transformPage(page: View, position: Float) {
             if (position >= 0) {
-                page.scaleX = 1f - 0.05f * position;
+                page.scaleX = 1f - 0.05f * position
                 page.scaleY = 1f - 0.05f * position
                 page.translationX = (-page.width * position) + (45 * position)
             }

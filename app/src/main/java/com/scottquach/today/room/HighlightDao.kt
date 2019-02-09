@@ -8,7 +8,7 @@ import androidx.room.Query
 
 @Dao
 interface HighlightDao {
-    @Query("SELECT * FROM highlights ORDER BY created")
+    @Query("SELECT * FROM highlights ORDER BY created DESC")
     fun getAll(): LiveData<List<Highlight>>
 
     @Query("SELECT * FROM highlights WHERE id = :highlightId")

@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">Today</string>
     <string name="entry_title">Create Today\'s Highlight</string>
+
+    <string name="entry_reminder_channel_name">Highlight Entry Reminder</string>
+    <string name="entry_reminder_channel_description">Daily reminder to create a highlight for the day</string>
+    <string name="completed_reminder_channel_name">Highlight Completed Reminder</string>
+    <string name="completed_reminder_channel_description">Daily reminder to check if you\'ve completed your set highlight</string>
+
 </resources>
