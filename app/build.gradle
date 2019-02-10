@@ -30,6 +30,7 @@ android {
 
 dependencies {
     def room_version = "2.1.0-alpha04"
+    def work_version = "1.0.0-beta05"
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
@@ -55,6 +56,10 @@ dependencies {
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.0'
     implementation 'io.reactivex.rxjava2:rxjava:2.2.0'
     implementation 'androidx.room:room-rxjava2:2.1.0-alpha04'
+
+    implementation "android.arch.work:work-runtime-ktx:$work_version"
+    // RxJava2 support
+    implementation "android.arch.work:work-rxjava2:$work_version"
 
 
     implementation 'com.jakewharton.timber:timber:4.7.1'
