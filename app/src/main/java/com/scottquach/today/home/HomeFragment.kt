@@ -44,6 +44,10 @@ class HomeFragment : Fragment() {
             view!!.findNavController().navigate(R.id.action_homeFragment_to_entryFragment)
         }
 
+        button_complete_highlight.setOnClickListener {
+            viewModel.completeHighlight();
+        }
+
         val adapter = OverviewPagerAdapter(context!!)
         pager_overview.apply {
             this.adapter = adapter

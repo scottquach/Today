@@ -20,6 +20,9 @@ interface HighlightDao {
     @Query("SELECT * FROM highlights WHERE date(datetime(created / 1000, 'unixepoch')) = date('now')")
     fun getToday(): LiveData<Highlight>
 
+    @Query("UPDATE highlights SET status = 'COMPLETED' WHERE id = :highlightId")
+    fun completeHighlight(highlightId: Int)
+
     @Insert
     fun insert(vararg highlights: Highlight)
 
