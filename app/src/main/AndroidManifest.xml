@@ -19,17 +19,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <receiver android:name=".BootReceiver">
+        <receiver android:name=".BootReceiver" android:enabled="false">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>
             </intent-filter>
         </receiver>
-        <receiver android:name=".NotifyReceiver">
-            <intent-filter>
-                <action android:name="ENTRY_REMINDER"/>
-                <action android:name="COMPLETED_REMINDER"/>
-            </intent-filter>
-        </receiver>
+        <receiver android:name=".notifications.CompletedReminderReceiver" android:enabled="false"/>
+        <receiver android:name=".notifications.EntryReminderReceiver" android:enabled="false"/>
     </application>
 
 </manifest>

@@ -12,6 +12,7 @@ import androidx.navigation.findNavController
 import androidx.viewpager.widget.ViewPager
 import com.scottquach.today.R
 import com.scottquach.today.databinding.HomeFragmentBinding
+import com.scottquach.today.notifications.NotificationService
 import kotlinx.android.synthetic.main.home_fragment.*
 import timber.log.Timber
 
@@ -48,6 +49,12 @@ class HomeFragment : Fragment() {
             viewModel.completeHighlight();
         }
 
+        button_settings.setOnClickListener {
+            view!!.findNavController().navigate(R.id.action_homeFragment_to_destination_settings)
+//            val notificationService = NotificationService(context!!)
+//            notificationService.showNotification("test", "test", 1)
+        }
+
         val adapter = OverviewPagerAdapter(context!!)
         pager_overview.apply {
             this.adapter = adapter
@@ -55,16 +62,16 @@ class HomeFragment : Fragment() {
             offscreenPageLimit = 4
         }
 
-        viewModel.events.observe(this, Observer {
+        viewModel.events.observe(viewLifecycleOwner, Observer {
 
         })
 
-        viewModel.todaysHighlight.observe(this, Observer {
+        viewModel.todaysHighlight.observe(viewLifecycleOwner, Observer {
             Timber.d("Todays highlight was ${it}")
             button_nav_entry.isEnabled = it == null
         })
 
-        viewModel.allHighlights.observe(this, Observer {
+        viewModel.allHighlights.observe(viewLifecycleOwner, Observer {
             Timber.d("All highlights were $it")
             adapter.setHighlights(it)
         })
