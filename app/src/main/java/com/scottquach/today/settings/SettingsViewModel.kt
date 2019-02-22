@@ -20,9 +20,6 @@ class SettingsViewModel(application: Application) : AndroidViewModel(application
 
     val events = _events as LiveData<Event<SettingsEvents>>
 
-    init {
-
-    }
 
     fun entryReminderChecked(isChecked: Boolean) {
         if (isChecked) {
@@ -33,7 +30,7 @@ class SettingsViewModel(application: Application) : AndroidViewModel(application
         prefUtil.entryReminderActive = isChecked
     }
 
-    fun compeleteReminderChecked(isChecked: Boolean) {
+    fun completeReminderChecked(isChecked: Boolean) {
         if (isChecked) {
             _events.value = Event(SettingsEvents.ShowCompletedPicker)
         } else {

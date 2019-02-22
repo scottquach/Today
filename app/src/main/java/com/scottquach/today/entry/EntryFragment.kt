@@ -32,7 +32,7 @@ class EntryFragment : Fragment() {
     ): View? {
         viewModel = ViewModelProviders.of(this).get(EntryViewModel::class.java)
         val binding = DataBindingUtil.inflate<EntryFragmentBinding>(inflater,R.layout.entry_fragment, container, false).apply {
-            setLifecycleOwner(this@EntryFragment)
+            lifecycleOwner = this@EntryFragment
             this.viewmodel = viewmodel
         }
         return binding.root
