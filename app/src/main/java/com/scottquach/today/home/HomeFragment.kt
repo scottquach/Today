@@ -1,11 +1,21 @@
 package com.scottquach.today.home
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
+import android.os.Handler
+import android.transition.ChangeBounds
+import android.transition.TransitionManager
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AccelerateInterpolator
+import android.view.animation.Animation
+import android.view.animation.AnticipateInterpolator
+import android.view.animation.LinearInterpolator
+import androidx.constraintlayout.widget.ConstraintSet
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
@@ -46,7 +56,22 @@ class HomeFragment : Fragment() {
         }
 
         button_complete_highlight.setOnClickListener {
-            viewModel.completeHighlight();
+            //            viewModel.completeHighlight()
+            card_today.animate()
+                .translationX(card_today.width.toFloat())
+                .setInterpolator(AnticipateInterpolator())
+                .setDuration(300)
+                .setListener(object : AnimatorListenerAdapter() {
+                    override fun onAnimationEnd(animation: Animator?) {
+                        val constraintSet = ConstraintSet()
+                        constraintSet.clone(context, R.layout.home_fragment_complete)
+                        val transition = ChangeBounds()
+                        transition.interpolator = AccelerateInterpolator()
+                        transition.duration = 200
+                        TransitionManager.beginDelayedTransition(constraint_home, transition)
+                        constraintSet.applyTo(constraint_home)
+                    }
+                })
         }
 
         button_settings.setOnClickListener {
@@ -74,6 +99,11 @@ class HomeFragment : Fragment() {
         viewModel.allHighlights.observe(viewLifecycleOwner, Observer {
             Timber.d("All highlights were $it")
             adapter.setHighlights(it)
+            Handler().post {
+                pager_overview.beginFakeDrag()
+                pager_overview.fakeDragBy(0f)
+                pager_overview.endFakeDrag()
+            }
         })
     }
 
