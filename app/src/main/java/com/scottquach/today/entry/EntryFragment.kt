@@ -41,6 +41,10 @@ class EntryFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        button_back.setOnClickListener {
+            findNavController().navigate(R.id.action_entryFragment_to_homeFragment)
+        }
+
         viewModel.events.observe(this, Observer {
             Timber.d("observer called ${it.peekContent()}")
             if (it.getContentIfNotHandled() == EntryRepository.Events.INSERTED) {
