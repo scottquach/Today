@@ -93,7 +93,7 @@ class HomeFragment : Fragment() {
 
         viewModel.todaysHighlight.observe(viewLifecycleOwner, Observer {
             Timber.d("Todays highlight was ${it}")
-            button_nav_entry.isEnabled = it == null
+//            button_nav_entry.isEnabled = it == null
         })
 
         viewModel.allHighlights.observe(viewLifecycleOwner, Observer {

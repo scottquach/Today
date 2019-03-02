@@ -20,7 +20,9 @@
                 app:destination="@id/entryFragment"/>
         <action
                 android:id="@+id/action_homeFragment_to_destination_settings"
-                app:destination="@id/destination_settings"/>
+                app:destination="@id/destination_settings"
+                app:enterAnim="@anim/nav_default_enter_anim"
+                app:exitAnim="@anim/nav_default_exit_anim"/>
     </fragment>
     <fragment
             android:id="@+id/entryFragment"
