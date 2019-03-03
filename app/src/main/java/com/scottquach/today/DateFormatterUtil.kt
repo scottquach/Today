@@ -5,11 +5,19 @@ import org.joda.time.DateTime
 object DateFormatterUtil {
 
     /**
-     * Returns a standardized human readable representation of a date
+     * Returns a standardized human readable representation of a date that includes the year
      */
-    fun getHumanFriendly(time: Long): String {
+    fun getYearHumanFriendly(time: Long): String {
         val dateTime = DateTime(time)
         return "${dateTime.toString("MMMM")} ${dateTime.dayOfMonth}${getLastDigitSufix(dateTime.dayOfMonth)} ${dateTime.year}"
+    }
+
+    /**
+     * Returns a standardized human readable representation of a date that includes the day of the week (no year)
+     */
+    fun getDayOfWeekHumanFriendly(time: Long): String {
+        val dateTime = DateTime(time)
+        return "${dateTime.toString("EEEE")}, ${dateTime.toString("MMM")} ${dateTime.dayOfMonth}"
     }
 
     /**

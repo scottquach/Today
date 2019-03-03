@@ -6,8 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.viewpager.widget.PagerAdapter
 import com.scottquach.today.DateFormatterUtil
+import com.scottquach.today.HighlightStatus
 import com.scottquach.today.R
 import com.scottquach.today.room.Highlight
 
@@ -29,8 +31,13 @@ class OverviewPagerAdapter(val context: Context) : PagerAdapter() {
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
         val itemView = LayoutInflater.from(context).inflate(R.layout.highlight_overview_item, container, false)
 
-        itemView.findViewById<TextView>(R.id.text_created).text = DateFormatterUtil.getHumanFriendly(highlights[position].created)
+        itemView.findViewById<TextView>(R.id.text_created).text = DateFormatterUtil.getYearHumanFriendly(highlights[position].created)
         itemView.findViewById<TextView>(R.id.text_highlight).text = highlights[position].value
+        if (highlights[position].status == HighlightStatus.COMPLETED) {
+            itemView.findViewById<CardView>(R.id.card_overview).setCardBackgroundColor(context.resources.getColor(R.color.green))
+        } else {
+            itemView.findViewById<CardView>(R.id.card_overview).setCardBackgroundColor(context.resources.getColor(R.color.red))
+        }
         container.addView(itemView)
 
         return itemView

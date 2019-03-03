@@ -12,19 +12,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AccelerateInterpolator
-import android.view.animation.Animation
 import android.view.animation.AnticipateInterpolator
-import android.view.animation.LinearInterpolator
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import androidx.viewpager.widget.ViewPager
+import com.scottquach.today.DateFormatterUtil
+import com.scottquach.today.HighlightStatus
 import com.scottquach.today.R
 import com.scottquach.today.databinding.HomeFragmentBinding
-import com.scottquach.today.notifications.NotificationService
 import kotlinx.android.synthetic.main.home_fragment.*
 import timber.log.Timber
+import java.util.*
 
 
 class HomeFragment : Fragment() {
@@ -50,13 +50,16 @@ class HomeFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
+        text_date.text = DateFormatterUtil.getDayOfWeekHumanFriendly(Date().time)
+
         button_nav_entry?.setOnClickListener {
             Timber.d("button create clicked")
             view!!.findNavController().navigate(R.id.action_homeFragment_to_entryFragment)
         }
 
         button_complete_highlight.setOnClickListener {
-            //            viewModel.completeHighlight()
+            viewModel.completeHighlight()
             card_today.animate()
                 .translationX(card_today.width.toFloat())
                 .setInterpolator(AnticipateInterpolator())
@@ -76,8 +79,6 @@ class HomeFragment : Fragment() {
 
         button_settings.setOnClickListener {
             view!!.findNavController().navigate(R.id.action_homeFragment_to_destination_settings)
-//            val notificationService = NotificationService(context!!)
-//            notificationService.showNotification("test", "test", 1)
         }
 
         val adapter = OverviewPagerAdapter(context!!)
@@ -93,7 +94,10 @@ class HomeFragment : Fragment() {
 
         viewModel.todaysHighlight.observe(viewLifecycleOwner, Observer {
             Timber.d("Todays highlight was ${it}")
-//            button_nav_entry.isEnabled = it == null
+            if (it?.status == HighlightStatus.COMPLETED) {
+
+            }
+            button_nav_entry.isEnabled = it == null
         })
 
         viewModel.allHighlights.observe(viewLifecycleOwner, Observer {
