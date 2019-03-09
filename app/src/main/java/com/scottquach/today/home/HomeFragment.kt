@@ -23,6 +23,8 @@ import com.scottquach.today.HighlightStatus
 import com.scottquach.today.R
 import com.scottquach.today.databinding.HomeFragmentBinding
 import kotlinx.android.synthetic.main.home_fragment.*
+import org.joda.time.DateTime
+import org.joda.time.DateTimeZone
 import timber.log.Timber
 import java.util.*
 
@@ -52,7 +54,6 @@ class HomeFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
         text_date.text = DateFormatterUtil.getDayOfWeekHumanFriendly(Date().time)
-
         button_nav_entry?.setOnClickListener {
             Timber.d("button create clicked")
             view!!.findNavController().navigate(R.id.action_homeFragment_to_entryFragment)

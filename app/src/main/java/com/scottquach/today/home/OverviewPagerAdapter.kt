@@ -12,6 +12,12 @@ import com.scottquach.today.DateFormatterUtil
 import com.scottquach.today.HighlightStatus
 import com.scottquach.today.R
 import com.scottquach.today.room.Highlight
+import org.joda.time.DateTime
+import org.joda.time.DateTimeZone
+import org.joda.time.LocalDateTime
+import timber.log.Timber
+import java.time.ZonedDateTime
+import java.util.*
 
 class OverviewPagerAdapter(val context: Context) : PagerAdapter() {
 

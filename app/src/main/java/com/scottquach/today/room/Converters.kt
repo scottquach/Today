@@ -2,17 +2,18 @@ package com.scottquach.today.room
 
 import androidx.room.TypeConverter
 import com.scottquach.today.HighlightStatus
+import org.joda.time.DateTime
 import java.util.*
 
 class Converters {
     @TypeConverter
-    fun fromTimestamp(value: Long?): Date? {
-        return value?.let { Date(it) }
+    fun fromTimestamp(value: Int?): Date? {
+        return value?.let { Date(it.toLong()) }
     }
 
     @TypeConverter
     fun dateToTimestamp(date: Date?): Long? {
-        return date?.time?.toLong()
+        return DateTime().millis
     }
 
     @TypeConverter

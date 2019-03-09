@@ -2,6 +2,7 @@ package com.scottquach.today
 
 import android.app.Application
 import com.amitshekhar.DebugDB
+import net.danlew.android.joda.JodaTimeAndroid
 import timber.log.Timber
 
 val prefUtil: PrefUtil by lazy {
@@ -22,6 +23,7 @@ class TodayApp: Application() {
         if (instance == null) {
             instance = this
         }
+        JodaTimeAndroid.init(this)
         prefs = PrefUtil(this)
         Timber.plant(DebugTree())
         Timber.d(DebugDB.getAddressLog())
