@@ -9,7 +9,13 @@
             android:id="@+id/destination_settings"
             android:name="com.scottquach.today.settings.SettingsFragment"
             android:label="settings_fragment"
-            tools:layout="@layout/settings_fragment"/>
+            tools:layout="@layout/settings_fragment">
+        <action
+                android:id="@+id/action_destination_settings_to_homeFragment"
+                app:destination="@id/homeFragment"
+                app:enterAnim="@anim/bottom_up"
+                app:popEnterAnim="@anim/bottom_up"/>
+    </fragment>
     <fragment
             android:id="@+id/homeFragment"
             android:name="com.scottquach.today.home.HomeFragment"
@@ -17,12 +23,14 @@
             tools:layout="@layout/home_fragment">
         <action
                 android:id="@+id/action_homeFragment_to_entryFragment"
-                app:destination="@id/entryFragment"/>
+                app:destination="@id/entryFragment"
+                app:enterAnim="@anim/bottom_up"
+                app:popEnterAnim="@anim/bottom_up"/>
         <action
                 android:id="@+id/action_homeFragment_to_destination_settings"
                 app:destination="@id/destination_settings"
-                app:enterAnim="@anim/nav_default_enter_anim"
-                app:exitAnim="@anim/nav_default_exit_anim"/>
+                app:enterAnim="@anim/bottom_up"
+                app:popEnterAnim="@anim/bottom_up"/>
     </fragment>
     <fragment
             android:id="@+id/entryFragment"
@@ -31,6 +39,8 @@
             tools:layout="@layout/entry_fragment">
         <action
                 android:id="@+id/action_entryFragment_to_homeFragment"
-                app:destination="@id/homeFragment"/>
+                app:destination="@id/homeFragment"
+                app:enterAnim="@anim/bottom_up"
+                app:popEnterAnim="@anim/bottom_up"/>
     </fragment>
 </navigation>

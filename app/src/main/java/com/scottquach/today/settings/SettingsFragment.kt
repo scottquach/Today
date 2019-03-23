@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import androidx.navigation.findNavController
 import com.scottquach.today.R
 import com.scottquach.today.prefUtil
 import kotlinx.android.synthetic.main.settings_fragment.*
@@ -48,6 +49,11 @@ class SettingsFragment : Fragment() {
 
         switch_completed_reminder.setOnCheckedChangeListener { buttonView, isChecked ->
             viewModel.completeReminderChecked(isChecked)
+        }
+
+        button_back.setOnClickListener {
+            view!!.findNavController().navigate(R.id.action_destination_settings_to_homeFragment)
+
         }
 
         viewModel.events.observe(viewLifecycleOwner, Observer {
