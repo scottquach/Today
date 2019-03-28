@@ -7,25 +7,21 @@ import android.os.Bundle
 import android.os.Handler
 import android.transition.ChangeBounds
 import android.transition.TransitionManager
-import android.transition.Visibility
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AccelerateInterpolator
 import android.view.animation.AnticipateInterpolator
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import androidx.viewpager.widget.ViewPager
-import com.scottquach.today.DateFormatterUtil
+import com.scottquach.today.util.DateFormatterUtil
 import com.scottquach.today.HighlightStatus
 import com.scottquach.today.R
 import com.scottquach.today.databinding.HomeFragmentBinding
 import kotlinx.android.synthetic.main.home_fragment.*
-import org.joda.time.DateTime
-import org.joda.time.DateTimeZone
 import timber.log.Timber
 import java.util.*
 
@@ -61,7 +57,7 @@ class HomeFragment : Fragment() {
         }
 
         button_complete_highlight.setOnClickListener {
-                        viewModel.completeHighlight()
+            viewModel.completeHighlight()
             card_today.animate()
                 .translationX(card_today.width.toFloat())
                 .setInterpolator(AnticipateInterpolator())
@@ -75,7 +71,6 @@ class HomeFragment : Fragment() {
                         constraintSet.clone(context, R.layout.home_fragment)
                         constraintSet.clone(context, R.layout.home_fragment_complete)
                         val transition = ChangeBounds()
-//                        transition.interpolator = AccelerateInterpolator()
                         transition.duration = 200
                         TransitionManager.beginDelayedTransition(constraint_home, transition)
                         constraintSet.applyTo(constraint_home)
@@ -99,39 +94,53 @@ class HomeFragment : Fragment() {
         })
 
         viewModel.todaysHighlight.observe(viewLifecycleOwner, Observer {
-            Timber.d("Todays highlight was ${it}")
-            if (it?.status == HighlightStatus.COMPLETED) {
-                card_today.animate()
-                    .translationX(card_today.width.toFloat())
-                    .setInterpolator(AnticipateInterpolator())
-                    .alpha(0.0f)
-                    .setDuration(300)
-                    .setListener(object : AnimatorListenerAdapter() {
-                        override fun onAnimationEnd(animation: Animator?) {
-                            text_all_done.visibility = View.VISIBLE
-                            card_today.visibility = View.GONE
-                            val constraintSet = ConstraintSet()
-                            constraintSet.clone(context, R.layout.home_fragment)
-                            constraintSet.clone(context, R.layout.home_fragment_complete)
-                            val transition = ChangeBounds()
+            when (it.status) {
+                TodayModel.Status.COMPLETE -> {
+                    card_today.animate()
+                        .translationX(card_today.width.toFloat())
+                        .setInterpolator(AnticipateInterpolator())
+                        .alpha(0.0f)
+                        .setDuration(300)
+                        .setListener(object : AnimatorListenerAdapter() {
+                            override fun onAnimationEnd(animation: Animator?) {
+                                text_all_done.visibility = View.VISIBLE
+                                card_today.visibility = View.GONE
+                                val constraintSet = ConstraintSet()
+                                constraintSet.clone(context, R.layout.home_fragment)
+                                constraintSet.clone(context, R.layout.home_fragment_complete)
+                                val transition = ChangeBounds()
 //                        transition.interpolator = AccelerateInterpolator()
-                            transition.duration = 200
-                            TransitionManager.beginDelayedTransition(constraint_home, transition)
-                            constraintSet.applyTo(constraint_home)
-                        }
-                    })
+                                transition.duration = 200
+                                TransitionManager.beginDelayedTransition(constraint_home, transition)
+                                constraintSet.applyTo(constraint_home)
+                            }
+                        })
+                    button_nav_entry.isEnabled = false
+                }
+                TodayModel.Status.PENDING -> {
+                    button_nav_entry.isEnabled = false
+
+                }
+                TodayModel.Status.NONE -> {
+                    button_nav_entry.isEnabled = true
+                    button_complete_highlight.visibility = View.GONE
+                    text_todays_highlight.visibility = View.GONE
+                    text_todays_highlight_header.text = "No highlight set for today"
+                }
             }
-            button_nav_entry.isEnabled = it == null
         })
 
         viewModel.allHighlights.observe(viewLifecycleOwner, Observer {
             Timber.d("All highlights were $it")
             adapter.setHighlights(it)
-            Handler().post {
-                pager_overview.beginFakeDrag()
-                pager_overview.fakeDragBy(0f)
-                pager_overview.endFakeDrag()
+            if (it.isNotEmpty()) {
+                Handler().post {
+                    pager_overview.beginFakeDrag()
+                    pager_overview.fakeDragBy(0f)
+                    pager_overview.endFakeDrag()
+                }
             }
+
         })
     }
 

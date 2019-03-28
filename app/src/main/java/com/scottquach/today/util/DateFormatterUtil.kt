@@ -1,4 +1,4 @@
-package com.scottquach.today
+package com.scottquach.today.util
 
 import org.joda.time.DateTime
 
@@ -9,7 +9,9 @@ object DateFormatterUtil {
      */
     fun getYearHumanFriendly(time: Long): String {
         val dateTime = DateTime(time)
-        return "${dateTime.toString("MMMM")} ${dateTime.dayOfMonth}${getLastDigitSufix(dateTime.dayOfMonth)} ${dateTime.year}"
+        return "${dateTime.toString("MMMM")} ${dateTime.dayOfMonth}${getLastDigitSufix(
+            dateTime.dayOfMonth
+        )} ${dateTime.year}"
     }
 
     /**

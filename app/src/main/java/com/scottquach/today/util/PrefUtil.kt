@@ -1,4 +1,4 @@
-package com.scottquach.today
+package com.scottquach.today.util
 
 import android.content.Context
 import java.util.*

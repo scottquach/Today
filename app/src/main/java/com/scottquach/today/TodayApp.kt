@@ -2,6 +2,7 @@ package com.scottquach.today
 
 import android.app.Application
 import com.amitshekhar.DebugDB
+import com.scottquach.today.util.PrefUtil
 import net.danlew.android.joda.JodaTimeAndroid
 import timber.log.Timber
 
