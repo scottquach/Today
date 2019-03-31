@@ -8,5 +8,8 @@
     <string name="completed_reminder_channel_description">Daily reminder to check if you\'ve completed your set highlight</string>
     <string name="my_highlight">My Highlight</string>
     <string name="home">Home</string>
+    <string name="history_title">My past highlights</string>
+    <string name="home_title">Home</string>
+    <string name="today_title">Today I\'m Working On</string>
 
 </resources>

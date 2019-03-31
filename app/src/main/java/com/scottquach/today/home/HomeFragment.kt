@@ -58,24 +58,26 @@ class HomeFragment : Fragment() {
 
         button_complete_highlight.setOnClickListener {
             viewModel.completeHighlight()
-            card_today.animate()
-                .translationX(card_today.width.toFloat())
-                .setInterpolator(AnticipateInterpolator())
-                .alpha(0.0f)
-                .setDuration(300)
-                .setListener(object : AnimatorListenerAdapter() {
-                    override fun onAnimationEnd(animation: Animator?) {
-                        text_all_done.visibility = View.VISIBLE
-                        card_today.visibility = View.GONE
-                        val constraintSet = ConstraintSet()
-                        constraintSet.clone(context, R.layout.home_fragment)
-                        constraintSet.clone(context, R.layout.home_fragment_complete)
-                        val transition = ChangeBounds()
-                        transition.duration = 200
-                        TransitionManager.beginDelayedTransition(constraint_home, transition)
-                        constraintSet.applyTo(constraint_home)
-                    }
-                })
+//            card_today.animate()
+//                .translationX(card_today.width.toFloat())
+//                .setInterpolator(AnticipateInterpolator())
+//                .alpha(0.0f)
+//                .setDuration(300)
+//                .setListener(object : AnimatorListenerAdapter() {
+//                    override fun onAnimationEnd(animation: Animator?) {
+//                        card_today.visibility = View.GONE
+                        text_today_title.text = "Highlight completed for today"
+                        button_complete_highlight.visibility = View.GONE
+//                        card_today.visibility = View.GONE
+//                        val constraintSet = ConstraintSet()
+//                        constraintSet.clone(context, R.layout.home_fragment)
+//                        constraintSet.clone(context, R.layout.home_fragment_complete)
+//                        val transition = ChangeBounds()
+//                        transition.duration = 200
+//                        TransitionManager.beginDelayedTransition(constraint_home, transition)
+//                        constraintSet.applyTo(constraint_home)
+//                    }
+//                })
         }
 
         button_settings.setOnClickListener {
@@ -96,36 +98,40 @@ class HomeFragment : Fragment() {
         viewModel.todaysHighlight.observe(viewLifecycleOwner, Observer {
             when (it.status) {
                 TodayModel.Status.COMPLETE -> {
-                    card_today.animate()
-                        .translationX(card_today.width.toFloat())
-                        .setInterpolator(AnticipateInterpolator())
-                        .alpha(0.0f)
-                        .setDuration(300)
-                        .setListener(object : AnimatorListenerAdapter() {
-                            override fun onAnimationEnd(animation: Animator?) {
-                                text_all_done.visibility = View.VISIBLE
-                                card_today.visibility = View.GONE
-                                val constraintSet = ConstraintSet()
-                                constraintSet.clone(context, R.layout.home_fragment)
-                                constraintSet.clone(context, R.layout.home_fragment_complete)
-                                val transition = ChangeBounds()
+//                    card_today.animate()
+//                        .translationX(card_today.width.toFloat())
+//                        .setInterpolator(AnticipateInterpolator())
+//                        .alpha(0.0f)
+//                        .setDuration(300)
+//                        .setListener(object : AnimatorListenerAdapter() {
+//                            override fun onAnimationEnd(animation: Animator?) {
+//                                card_today.visibility = View.GONE
+                                text_today_title.text = "Highlight completed for today"
+                                text_todays_highlight.text = it.highlight?.value
+                                button_complete_highlight.visibility = View.GONE
+//                                val constraintSet = ConstraintSet()
+//                                constraintSet.clone(context, R.layout.home_fragment)
+//                                constraintSet.clone(context, R.layout.home_fragment_complete)
+//                                val transition = ChangeBounds()
 //                        transition.interpolator = AccelerateInterpolator()
-                                transition.duration = 200
-                                TransitionManager.beginDelayedTransition(constraint_home, transition)
-                                constraintSet.applyTo(constraint_home)
-                            }
-                        })
+//                                transition.duration = 200
+//                                TransitionManager.beginDelayedTransition(constraint_home, transition)
+//                                constraintSet.applyTo(constraint_home)
+//                            }
+//                        })
                     button_nav_entry.isEnabled = false
                 }
                 TodayModel.Status.PENDING -> {
                     button_nav_entry.isEnabled = false
+                    text_todays_highlight.text = it.highlight?.value
 
                 }
                 TodayModel.Status.NONE -> {
                     button_nav_entry.isEnabled = true
                     button_complete_highlight.visibility = View.GONE
-                    text_todays_highlight.visibility = View.GONE
-                    text_todays_highlight_header.text = "No highlight set for today"
+                    text_todays_highlight.text = "Nothing"
+//                    text_todays_highlight.visibility = View.GONE
+//                    text_todays_highlight_header.text = "No highlight set for today"
                 }
             }
         })
@@ -140,7 +146,6 @@ class HomeFragment : Fragment() {
                     pager_overview.endFakeDrag()
                 }
             }
-
         })
     }
 
