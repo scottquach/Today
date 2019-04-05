@@ -12,6 +12,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import com.scottquach.today.R
 import com.scottquach.today.prefUtil
+import com.scottquach.today.util.DateFormatterUtil
 import kotlinx.android.synthetic.main.settings_fragment.*
 import org.joda.time.DateTime
 import timber.log.Timber
@@ -30,10 +31,6 @@ class SettingsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         viewModel = ViewModelProviders.of(this).get(SettingsViewModel::class.java)
-//        val binding = DataBindingUtil.inflate<SettingsFragmentBinding>(inflater, R.layout.settings_fragment, container, false).apply {
-//            this.lifecycleOwner = this@SettingsFragment
-//        }
-//        binding.viewModel = viewModel
         return inflater.inflate(R.layout.settings_fragment, container, false)
     }
 
@@ -42,6 +39,8 @@ class SettingsFragment : Fragment() {
 
         switch_entry_reminder.isChecked = prefUtil.entryReminderActive
         switch_completed_reminder.isChecked = prefUtil.completedReminderActive
+        text_entry_time.text = DateFormatterUtil.getTimeHumanFriendly(prefUtil.entryReminderTime)
+        text_completed_time.text = DateFormatterUtil.getTimeHumanFriendly(prefUtil.completedReminderTime)
 
         switch_entry_reminder.setOnCheckedChangeListener { buttonView, isChecked ->
             viewModel.entryReminderChecked(isChecked)
@@ -53,18 +52,22 @@ class SettingsFragment : Fragment() {
 
         button_back.setOnClickListener {
             view!!.findNavController().navigate(R.id.action_destination_settings_to_homeFragment)
-
         }
 
         viewModel.events.observe(viewLifecycleOwner, Observer {
             when (it.getContentIfNotHandled()) {
                 SettingsViewModel.SettingsEvents.ShowEntryPicker -> showTimePicker(it.peekContent())
                 SettingsViewModel.SettingsEvents.ShowCompletedPicker -> showTimePicker(it.peekContent())
+                SettingsViewModel.SettingsEvents.TimeSet -> {
+                    text_entry_time.text = DateFormatterUtil.getTimeHumanFriendly(prefUtil.entryReminderTime)
+                    text_completed_time.text = DateFormatterUtil.getTimeHumanFriendly(prefUtil.completedReminderTime)
+                    Timber.d("time set")
+                }
             }
         })
     }
 
-    fun showTimePicker(type: SettingsViewModel.SettingsEvents) {
+    private fun showTimePicker(type: SettingsViewModel.SettingsEvents) {
         val currentTime = DateTime()
         val timePicker = TimePickerDialog(context, TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
             viewModel.timeSet(hourOfDay, minute, type)

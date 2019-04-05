@@ -2,15 +2,16 @@ package com.scottquach.today.settings
 
 import android.app.AlarmManager
 import android.app.PendingIntent
+import android.content.BroadcastReceiver
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import com.scottquach.today.BootReceiver
-import com.scottquach.today.notifications.CompletedReminderReceiver
 import com.scottquach.today.notifications.EntryReminderReceiver
 import com.scottquach.today.prefUtil
 import timber.log.Timber
+import kotlin.reflect.KClass
 
 
 class SettingsRepository(val context: Context) {
@@ -47,9 +48,8 @@ class SettingsRepository(val context: Context) {
         }
     }
 
-    fun setEntryReminder(time: Long) {
-        prefUtil.entryReminderTime = time
-        val componentName = ComponentName(context, EntryReminderReceiver::class.java)
+    fun setReminder(time: Long, receiver: Class<out BroadcastReceiver>) {
+        val componentName = ComponentName(context, receiver)
         with(context.packageManager) {
             setComponentEnabledSetting(
                 componentName,
@@ -57,14 +57,14 @@ class SettingsRepository(val context: Context) {
                 PackageManager.DONT_KILL_APP
             )
         }
-        val alarmIntent: PendingIntent = Intent(context, EntryReminderReceiver::class.java).let {
+        val alarmIntent: PendingIntent = Intent(context, receiver).let {
             PendingIntent.getBroadcast(context, 0, it, 0)
         }
         setAlarm(time, alarmIntent)
     }
 
-    fun disableEntryReminder() {
-        val componentName = ComponentName(context, EntryReminderReceiver::class.java)
+    fun disableReminder(receiver: Class<out BroadcastReceiver>) {
+        val componentName = ComponentName(context, receiver)
         with(context.packageManager) {
             setComponentEnabledSetting(
                 componentName,
@@ -72,38 +72,7 @@ class SettingsRepository(val context: Context) {
                 PackageManager.DONT_KILL_APP
             )
         }
-        val alarmIntent: PendingIntent = Intent(context, EntryReminderReceiver::class.java).let {
-            PendingIntent.getBroadcast(context, 0, it, 0)
-        }
-        cancelAlarm(alarmIntent)
-    }
-
-    fun setCompletedReminder(time: Long) {
-        prefUtil.completedReminderTime = time
-        val componentName = ComponentName(context, CompletedReminderReceiver::class.java)
-        with(context.packageManager) {
-            setComponentEnabledSetting(
-                componentName,
-                PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
-                PackageManager.DONT_KILL_APP
-            )
-        }
-        val alarmIntent: PendingIntent = Intent(context, CompletedReminderReceiver::class.java).let {
-            PendingIntent.getBroadcast(context, 0, it, 0)
-        }
-        setAlarm(time, alarmIntent)
-    }
-
-    fun disableCompletedReminder() {
-        val componentName = ComponentName(context, CompletedReminderReceiver::class.java)
-        with(context.packageManager) {
-            setComponentEnabledSetting(
-                componentName,
-                PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
-                PackageManager.DONT_KILL_APP
-            )
-        }
-        val alarmIntent: PendingIntent = Intent(context, CompletedReminderReceiver::class.java).let {
+        val alarmIntent: PendingIntent = Intent(context, receiver).let {
             PendingIntent.getBroadcast(context, 0, it, 0)
         }
         cancelAlarm(alarmIntent)

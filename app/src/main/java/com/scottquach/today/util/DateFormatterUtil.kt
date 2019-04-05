@@ -22,6 +22,11 @@ object DateFormatterUtil {
         return "${dateTime.toString("EEEE")}, ${dateTime.toString("MMM")} ${dateTime.dayOfMonth}"
     }
 
+    fun getTimeHumanFriendly(time: Long): String {
+        val dateTime = DateTime(time)
+        return "${dateTime.toString("hh")}:${dateTime.toString("mm")} ${dateTime.toString("aa")}"
+    }
+
     /**
      * Returns the correct suffix for the last digit (1st, 2nd, .. , 13th, .. , 23rd)
      */

@@ -1,31 +1,34 @@
 package com.scottquach.today.settings
 
 import android.app.Application
+import android.content.BroadcastReceiver
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.scottquach.today.Event
+import com.scottquach.today.notifications.CompletedReminderReceiver
+import com.scottquach.today.notifications.EntryReminderReceiver
 import com.scottquach.today.prefUtil
+import com.scottquach.today.util.DateFormatterUtil
 import org.joda.time.DateTime
 import timber.log.Timber
 
 class SettingsViewModel(application: Application) : AndroidViewModel(application) {
     enum class SettingsEvents {
         ShowEntryPicker,
-        ShowCompletedPicker
+        ShowCompletedPicker,
+        TimeSet
     }
 
     private val repository: SettingsRepository = SettingsRepository(application)
     private val _events = MutableLiveData<Event<SettingsEvents>>()
-
     val events = _events as LiveData<Event<SettingsEvents>>
-
 
     fun entryReminderChecked(isChecked: Boolean) {
         if (isChecked) {
             _events.value = Event(SettingsEvents.ShowEntryPicker)
         } else {
-            repository.disableEntryReminder()
+            repository.disableReminder(EntryReminderReceiver::class.java)
         }
         prefUtil.entryReminderActive = isChecked
     }
@@ -34,21 +37,28 @@ class SettingsViewModel(application: Application) : AndroidViewModel(application
         if (isChecked) {
             _events.value = Event(SettingsEvents.ShowCompletedPicker)
         } else {
-            repository.disableCompletedReminder()
+            repository.disableReminder(CompletedReminderReceiver::class.java)
         }
         prefUtil.completedReminderActive = isChecked
     }
 
     fun timeSet(hourOfDay: Int, minute: Int, type: SettingsEvents) {
-        val time = DateTime().apply {
-            this.withHourOfDay(hourOfDay)
-            this.withMinuteOfHour(minute)
-        }
-
+        val time = DateTime()
+            .withHourOfDay(hourOfDay)
+            .withMinuteOfHour(minute)
+        Timber.d("hourOfday ${hourOfDay} minute ${minute}")
         Timber.d("Time was $time")
         when(type) {
-            SettingsEvents.ShowEntryPicker -> repository.setEntryReminder(time.millis)
-            SettingsEvents.ShowCompletedPicker -> repository.setCompletedReminder(time.millis)
+            SettingsEvents.ShowEntryPicker -> {
+                repository.setReminder(time.millis, EntryReminderReceiver::class.java)
+                prefUtil.entryReminderTime = time.millis
+                _events.value = Event(SettingsEvents.TimeSet)
+            }
+            SettingsEvents.ShowCompletedPicker -> {
+                repository.setReminder(time.millis, CompletedReminderReceiver::class.java)
+                prefUtil.completedReminderTime = time.millis
+                _events.value = Event(SettingsEvents.TimeSet)
+            }
         }
     }
 
