@@ -8,11 +8,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import com.scottquach.today.BootReceiver
-import com.scottquach.today.notifications.EntryReminderReceiver
-import com.scottquach.today.prefUtil
 import timber.log.Timber
-import kotlin.reflect.KClass
-
 
 class SettingsRepository(val context: Context) {
 

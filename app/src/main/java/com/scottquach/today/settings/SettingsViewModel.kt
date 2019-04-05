@@ -11,6 +11,7 @@ import com.scottquach.today.notifications.EntryReminderReceiver
 import com.scottquach.today.prefUtil
 import com.scottquach.today.util.DateFormatterUtil
 import org.joda.time.DateTime
+import org.joda.time.MutableDateTime
 import timber.log.Timber
 
 class SettingsViewModel(application: Application) : AndroidViewModel(application) {
@@ -43,9 +44,14 @@ class SettingsViewModel(application: Application) : AndroidViewModel(application
     }
 
     fun timeSet(hourOfDay: Int, minute: Int, type: SettingsEvents) {
-        val time = DateTime()
-            .withHourOfDay(hourOfDay)
-            .withMinuteOfHour(minute)
+        val time = MutableDateTime().apply {
+            this.hourOfDay = hourOfDay
+            this.minuteOfHour = minute
+        }
+        if (!time.isAfterNow) {
+            time.addDays(1)
+        }
+
         Timber.d("hourOfday ${hourOfDay} minute ${minute}")
         Timber.d("Time was $time")
         when(type) {
