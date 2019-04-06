@@ -35,7 +35,7 @@
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Settings"
+                android:text="@string/nav_screen_settings"
                 android:gravity="center_horizontal"
                 android:textSize="18sp"
                 android:textStyle="bold"

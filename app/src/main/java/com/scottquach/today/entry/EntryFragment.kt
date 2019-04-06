@@ -41,6 +41,9 @@ class EntryFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        val newEntryPlaceholders: Array<String> = resources.getStringArray(R.array.new_entry_placeholders)
+        edit_entry.hint = newEntryPlaceholders.random()
+        
         button_back.setOnClickListener {
             findNavController().navigate(R.id.action_entryFragment_to_homeFragment)
         }

@@ -22,14 +22,8 @@ class EntryRepository {
     }
 
     private val db: AppDatabase = AppDatabase.getInstance(TodayApp.getInstance()!!.applicationContext)
-    private val _allHighlights: LiveData<List<Highlight>> = db.highlightDao().getAll()
-    private val _todaysHighlight: LiveData<Highlight> = db.highlightDao().getToday()
     private val _events = MutableLiveData<Event<Events>>()
 
-    val allHighlights: LiveData<List<Highlight>>
-        get() = _allHighlights
-    val todaysHighlight: LiveData<Highlight>
-        get() = _todaysHighlight
     val events: LiveData<Event<Events>>
         get() = _events
 
