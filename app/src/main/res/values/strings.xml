@@ -11,5 +11,20 @@
     <string name="history_title">My past highlights</string>
     <string name="home_title">Home</string>
     <string name="today_title">Today I\'m Working On</string>
+    <string name="create_entry">Create</string>
+    <string name="nav_screen_new_entry">New Entry</string>
+    <string name="nav_screen_settings">Settings</string>
 
+
+    <string-array name="new_entry_placeholders">
+        <item>Read 2 chapters of Moby Dick</item>
+        <item>Play a match of tennis</item>
+        <item>Write the outline of my final essay</item>
+        <item>Plan trip to Vancouver</item>
+        <item>Try out that new macaroni recipe</item>
+        <item>Go present shopping for mom</item>
+        <item>Watch the new Game of Thrones episode</item>
+        <item>Create a road trip playlist</item>
+        <item>Publish my new app to the app store</item>
+    </string-array>
 </resources>
