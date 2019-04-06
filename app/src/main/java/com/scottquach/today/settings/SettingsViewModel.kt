@@ -1,7 +1,6 @@
 package com.scottquach.today.settings
 
 import android.app.Application
-import android.content.BroadcastReceiver
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -9,8 +8,6 @@ import com.scottquach.today.Event
 import com.scottquach.today.notifications.CompletedReminderReceiver
 import com.scottquach.today.notifications.EntryReminderReceiver
 import com.scottquach.today.prefUtil
-import com.scottquach.today.util.DateFormatterUtil
-import org.joda.time.DateTime
 import org.joda.time.MutableDateTime
 import timber.log.Timber
 

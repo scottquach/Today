@@ -23,4 +23,8 @@ class PrefUtil(context: Context) {
     get() = prefs.getBoolean("completed_reminder_active", false)
     set(value: Boolean) = prefs.edit().putBoolean("completed_reminder_active", value).apply()
 
+    var isFirstBoot: Boolean
+    get() = prefs.getBoolean("is_first_boot", true)
+    set(value: Boolean) = prefs.edit().putBoolean("is_first_boot", value).apply()
+
 }
