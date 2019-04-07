@@ -16,8 +16,8 @@ class BootReceiver : BroadcastReceiver() {
         if (intent.action == "android.intent.action.BOOT_COMPLETED") {
             val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
             if (prefUtil.entryReminderActive) {
-                alarmManager.setInexactRepeating(
-                    AlarmManager.RTC,
+                alarmManager.setRepeating(
+                    AlarmManager.RTC_WAKEUP,
                     prefUtil.entryReminderTime,
                     AlarmManager.INTERVAL_DAY,
                     Intent(context, EntryReminderReceiver::class.java).let {
@@ -26,8 +26,8 @@ class BootReceiver : BroadcastReceiver() {
                 )
             }
             if (prefUtil.completedReminderActive) {
-                alarmManager.setInexactRepeating(
-                    AlarmManager.RTC,
+                alarmManager.setRepeating(
+                    AlarmManager.RTC_WAKEUP,
                     prefUtil.completedReminderTime,
                     AlarmManager.INTERVAL_DAY,
                     Intent(context, CompletedReminderReceiver::class.java).let {
