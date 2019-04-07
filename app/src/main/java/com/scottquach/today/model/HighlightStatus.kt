@@ -1,4 +1,4 @@
-package com.scottquach.today
+package com.scottquach.today.model
 
 enum class HighlightStatus(val status: String) {
     COMPLETED("COMPLETED") {

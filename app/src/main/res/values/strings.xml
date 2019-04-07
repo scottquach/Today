@@ -7,14 +7,16 @@
     <string name="completed_reminder_channel_name">Highlight Completed Reminder</string>
     <string name="completed_reminder_channel_description">Daily reminder to check if you\'ve completed your set highlight</string>
     <string name="my_highlight">My Highlight</string>
-    <string name="home">Home</string>
-    <string name="history_title">My past highlights</string>
-    <string name="home_title">Home</string>
-    <string name="today_title">Today I\'m Working On</string>
-    <string name="create_entry">Create</string>
+    <string name="history_title">Past highlights</string>
+    <string name="today_title">Today my highlight is</string>
+    <string name="button_create_entry">Create</string>
+    <string name="nav_screen_home">Home</string>
     <string name="nav_screen_new_entry">New Entry</string>
     <string name="nav_screen_settings">Settings</string>
-
+    <string name="overview_item_status_complete">Completed</string>
+    <string name="overview_item_incomplete">Incomplete</string>
+    <string name="home_highlight_completed">Highlight completed for today ✅</string>
+    <string name="home_create_highlight">Create a highlight for today ✏️</string>
 
     <string-array name="new_entry_placeholders">
         <item>Read 2 chapters of Moby Dick</item>

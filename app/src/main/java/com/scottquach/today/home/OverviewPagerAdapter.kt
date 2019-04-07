@@ -9,7 +9,7 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.viewpager.widget.PagerAdapter
 import com.scottquach.today.util.DateFormatterUtil
-import com.scottquach.today.HighlightStatus
+import com.scottquach.today.model.HighlightStatus
 import com.scottquach.today.R
 import com.scottquach.today.room.Highlight
 
@@ -35,8 +35,10 @@ class OverviewPagerAdapter(val context: Context) : PagerAdapter() {
         itemView.findViewById<TextView>(R.id.text_highlight).text = highlights[position].value
         if (highlights[position].status == HighlightStatus.COMPLETED) {
             itemView.findViewById<CardView>(R.id.card_overview).setCardBackgroundColor(context.resources.getColor(R.color.green))
+            itemView.findViewById<TextView>(R.id.text_status).text = context.getString(R.string.overview_item_status_complete)
         } else {
             itemView.findViewById<CardView>(R.id.card_overview).setCardBackgroundColor(context.resources.getColor(R.color.red))
+            itemView.findViewById<TextView>(R.id.text_status).text = context.getString(R.string.overview_item_incomplete)
         }
         container.addView(itemView)
 

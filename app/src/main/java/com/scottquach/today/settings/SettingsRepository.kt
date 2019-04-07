@@ -25,7 +25,7 @@ class SettingsRepository(val context: Context) {
             )
         }
         alarmManager.setRepeating(
-            AlarmManager.RTC,
+            AlarmManager.RTC_WAKEUP,
             time,
             AlarmManager.INTERVAL_DAY,
             alarmIntent

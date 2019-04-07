@@ -2,7 +2,7 @@ package com.scottquach.today.home
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.scottquach.today.Event
+import com.scottquach.today.model.Event
 import com.scottquach.today.TodayApp
 import com.scottquach.today.entry.EntryRepository
 import com.scottquach.today.room.AppDatabase

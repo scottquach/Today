@@ -1,4 +1,4 @@
-package com.scottquach.today.home
+package com.scottquach.today.model
 
 import com.scottquach.today.room.Highlight
 

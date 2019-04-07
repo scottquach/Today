@@ -1,8 +1,9 @@
 package com.scottquach.today.home
 
 import androidx.lifecycle.*
-import com.scottquach.today.Event
-import com.scottquach.today.HighlightStatus
+import com.scottquach.today.model.Event
+import com.scottquach.today.model.HighlightStatus
+import com.scottquach.today.model.TodayModel
 import com.scottquach.today.room.Highlight
 import org.joda.time.DateTime
 import org.joda.time.LocalDate
@@ -27,8 +28,14 @@ class HomeViewModel : ViewModel() {
             val isToday = created.toLocalDate() == LocalDate()
             if (isToday) {
                 when {
-                    it.status == HighlightStatus.COMPLETED -> return@map TodayModel(TodayModel.Status.COMPLETE, it)
-                    else -> return@map TodayModel(TodayModel.Status.PENDING, it)
+                    it.status == HighlightStatus.COMPLETED -> return@map TodayModel(
+                        TodayModel.Status.COMPLETE,
+                        it
+                    )
+                    else -> return@map TodayModel(
+                        TodayModel.Status.PENDING,
+                        it
+                    )
                 }
             } else {
                 return@map TodayModel(TodayModel.Status.NONE, it)

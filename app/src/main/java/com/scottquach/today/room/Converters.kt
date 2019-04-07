@@ -1,7 +1,7 @@
 package com.scottquach.today.room
 
 import androidx.room.TypeConverter
-import com.scottquach.today.HighlightStatus
+import com.scottquach.today.model.HighlightStatus
 import org.joda.time.DateTime
 import java.util.*
 

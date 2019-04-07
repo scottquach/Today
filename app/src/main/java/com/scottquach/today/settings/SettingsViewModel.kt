@@ -4,7 +4,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.scottquach.today.Event
+import com.scottquach.today.model.Event
 import com.scottquach.today.notifications.CompletedReminderReceiver
 import com.scottquach.today.notifications.EntryReminderReceiver
 import com.scottquach.today.prefUtil

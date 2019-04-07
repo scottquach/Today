@@ -2,12 +2,10 @@ package com.scottquach.today.room
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
-import androidx.room.Ignore
 import androidx.room.PrimaryKey
-import com.scottquach.today.HighlightStatus
+import com.scottquach.today.model.HighlightStatus
 import org.joda.time.DateTime
 import org.joda.time.DateTimeZone
-import java.util.*
 
 @Entity(tableName = "highlights")
 data class Highlight(
