@@ -14,6 +14,7 @@ import androidx.viewpager.widget.ViewPager
 import com.scottquach.today.util.DateFormatterUtil
 import com.scottquach.today.R
 import com.scottquach.today.databinding.HomeFragmentBinding
+import com.scottquach.today.model.HighlightStatus
 import com.scottquach.today.model.TodayModel
 import kotlinx.android.synthetic.main.home_fragment.*
 import timber.log.Timber
@@ -46,7 +47,6 @@ class HomeFragment : Fragment() {
 
         text_date.text = DateFormatterUtil.getDayOfWeekHumanFriendly(Date().time)
         button_nav_entry?.setOnClickListener {
-            Timber.d("button create clicked")
             view!!.findNavController().navigate(R.id.action_homeFragment_to_entryFragment)
         }
 
@@ -73,18 +73,19 @@ class HomeFragment : Fragment() {
         })
 
         viewModel.todaysHighlight.observe(viewLifecycleOwner, Observer {
+            Timber.d("Todays highlight was $it")
             when (it.status) {
-                TodayModel.Status.COMPLETE -> {
+                HighlightStatus.COMPLETED -> {
                     text_today_title.text = getString(R.string.home_highlight_completed)
-                    text_cards_highlight.text = it.highlight?.value
+                    button_complete_highlight.visibility = View.GONE
+                    card_today.visibility = View.GONE
                     button_nav_entry.isEnabled = false
                 }
-                TodayModel.Status.PENDING -> {
+                HighlightStatus.PENDING -> {
                     button_nav_entry.isEnabled = false
                     text_cards_highlight.text = it.highlight?.value
-
                 }
-                TodayModel.Status.NONE -> {
+                HighlightStatus.NONE -> {
                     button_nav_entry.isEnabled = true
                     button_complete_highlight.visibility = View.GONE
                     card_today.visibility = View.GONE

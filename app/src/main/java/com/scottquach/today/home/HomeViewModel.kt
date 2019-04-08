@@ -7,6 +7,7 @@ import com.scottquach.today.model.TodayModel
 import com.scottquach.today.room.Highlight
 import org.joda.time.DateTime
 import org.joda.time.LocalDate
+import timber.log.Timber
 
 class HomeViewModel : ViewModel() {
 
@@ -23,31 +24,31 @@ class HomeViewModel : ViewModel() {
 
     val events = _events as LiveData<Event<Events>>
     val todaysHighlight = Transformations.map(repository.todaysHighlight) {
+        Timber.d("$it")
         if (it != null) {
             val created = DateTime(it.created)
             val isToday = created.toLocalDate() == LocalDate()
             if (isToday) {
                 when {
                     it.status == HighlightStatus.COMPLETED -> return@map TodayModel(
-                        TodayModel.Status.COMPLETE,
+                        HighlightStatus.COMPLETED,
                         it
                     )
                     else -> return@map TodayModel(
-                        TodayModel.Status.PENDING,
+                        HighlightStatus.PENDING,
                         it
                     )
                 }
             } else {
-                return@map TodayModel(TodayModel.Status.NONE, it)
+                return@map TodayModel(HighlightStatus.NONE, it)
             }
-        } else return@map TodayModel(TodayModel.Status.NONE, it)
+        } else return@map TodayModel(HighlightStatus.NONE, it)
     }
 
     init {
         allHighlights.addSource(_allHighlights) {
-            if (todaysHighlight.value?.status == TodayModel.Status.PENDING ||
-                todaysHighlight.value?.status == TodayModel.Status.COMPLETE
-            ) {
+
+            if (todaysHighlight.value?.status == HighlightStatus.PENDING) {
                 allHighlights.value = it.drop(1)
             } else {
                 allHighlights.value = it

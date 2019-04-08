@@ -10,5 +10,15 @@ enum class HighlightStatus(val status: String) {
         override fun toString(): String {
             return "INCOMPLETE"
         }
+    },
+    PENDING("PENDING") {
+        override fun toString(): String {
+            return "PENDING"
+        }
+    },
+    NONE("NONE") {
+        override fun toString(): String {
+            return "NONE"
+        }
     }
 }
