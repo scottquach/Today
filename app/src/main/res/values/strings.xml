@@ -11,12 +11,16 @@
     <string name="today_title">Today my highlight is</string>
     <string name="button_create_entry">Create</string>
     <string name="nav_screen_home">Home</string>
-    <string name="nav_screen_new_entry">New Entry</string>
+    <string name="nav_screen_new_entry">New Highlight</string>
     <string name="nav_screen_settings">Settings</string>
     <string name="overview_item_status_complete">Completed</string>
     <string name="overview_item_incomplete">Incomplete</string>
     <string name="home_highlight_completed">Highlight completed for today ✅</string>
     <string name="home_create_highlight">Create a highlight for today ✏️</string>
+    <string name="notif_completed_title">Did you accomplish today\'s highlight?</string>
+    <string name="notif_completed_body">Mark that your highlight was completed</string>
+    <string name="notif_entry_title">Get focused</string>
+    <string name="notif_entry_body">Enter your highlight for the day</string>
 
     <string-array name="new_entry_placeholders">
         <item>Read 2 chapters of Moby Dick</item>

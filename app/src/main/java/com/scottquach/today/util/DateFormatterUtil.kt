@@ -7,8 +7,7 @@ object DateFormatterUtil {
     /**
      * Returns a standardized human readable representation of a date that includes the year
      */
-    fun getYearHumanFriendly(time: Long): String {
-        val dateTime = DateTime(time)
+    fun getYearHumanFriendly(dateTime: DateTime): String {
         return "${dateTime.toString("MMMM")} ${dateTime.dayOfMonth}${getLastDigitSufix(
             dateTime.dayOfMonth
         )} ${dateTime.year}"
@@ -17,8 +16,7 @@ object DateFormatterUtil {
     /**
      * Returns a standardized human readable representation of a date that includes the day of the week (no year)
      */
-    fun getDayOfWeekHumanFriendly(time: Long): String {
-        val dateTime = DateTime(time)
+    fun getDayOfWeekHumanFriendly(dateTime: DateTime): String {
         return "${dateTime.toString("EEEE")}, ${dateTime.toString("MMM")} ${dateTime.dayOfMonth}"
     }
 

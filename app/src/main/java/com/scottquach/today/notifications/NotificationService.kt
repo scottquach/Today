@@ -39,6 +39,7 @@ class NotificationService(val context: Context) {
             .setContentText(content)
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
             .setContentIntent(pendingIntent)
+            .setAutoCancel(true)
 
         with(NotificationManagerCompat.from(context)) {
             notify(id, notifBuilder.build())

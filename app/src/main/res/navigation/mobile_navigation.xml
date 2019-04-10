@@ -15,8 +15,7 @@
                 app:destination="@id/homeFragment"
                 app:enterAnim="@anim/bottom_up"
                 app:popEnterAnim="@anim/bottom_up"
-                app:exitAnim="@anim/bottom_down"
-                app:popExitAnim="@anim/bottom_down"/>
+                />
     </fragment>
     <fragment
             android:id="@+id/homeFragment"
@@ -28,15 +27,13 @@
                 app:destination="@id/entryFragment"
                 app:enterAnim="@anim/bottom_up"
                 app:popEnterAnim="@anim/bottom_up"
-                app:exitAnim="@anim/bottom_down"
-                app:popExitAnim="@anim/bottom_down"/>
+                />
         <action
                 android:id="@+id/action_homeFragment_to_destination_settings"
                 app:destination="@id/destination_settings"
                 app:enterAnim="@anim/bottom_up"
                 app:popEnterAnim="@anim/bottom_up"
-                app:exitAnim="@anim/bottom_down"
-                app:popExitAnim="@anim/bottom_down"/>
+                />
     </fragment>
     <fragment
             android:id="@+id/entryFragment"
@@ -48,7 +45,6 @@
                 app:destination="@id/homeFragment"
                 app:enterAnim="@anim/bottom_up"
                 app:popEnterAnim="@anim/bottom_up"
-                app:exitAnim="@anim/bottom_down"
-                app:popExitAnim="@anim/bottom_down"/>
+                />
     </fragment>
 </navigation>

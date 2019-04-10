@@ -17,6 +17,7 @@ import com.scottquach.today.databinding.HomeFragmentBinding
 import com.scottquach.today.model.HighlightStatus
 import com.scottquach.today.model.TodayModel
 import kotlinx.android.synthetic.main.home_fragment.*
+import org.joda.time.DateTime
 import timber.log.Timber
 import java.util.*
 
@@ -45,7 +46,9 @@ class HomeFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        text_date.text = DateFormatterUtil.getDayOfWeekHumanFriendly(Date().time)
+        Timber.d("time is ${DateTime().toString()}")
+
+        text_date.text = DateFormatterUtil.getDayOfWeekHumanFriendly(DateTime())
         button_nav_entry?.setOnClickListener {
             view!!.findNavController().navigate(R.id.action_homeFragment_to_entryFragment)
         }
@@ -91,6 +94,7 @@ class HomeFragment : Fragment() {
                     card_today.visibility = View.GONE
                     text_today_title.text = getString(R.string.home_create_highlight)
                 }
+                HighlightStatus.INCOMPLETE -> TODO()
             }
         })
 
@@ -111,8 +115,8 @@ class HomeFragment : Fragment() {
         override fun transformPage(page: View, position: Float) {
             if (position >= 0) {
                 page.scaleX = 1f - 0.05f * position
-                page.scaleY = 1f - 0.05f * position
-                page.translationX = (-page.width * position) + (45 * position)
+                page.scaleY = 1f - 0.1f * position
+                page.translationX = (-page.width * position) + (75 * position)
             }
         }
     }

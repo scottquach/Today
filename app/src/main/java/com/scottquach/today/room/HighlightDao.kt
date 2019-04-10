@@ -17,7 +17,7 @@ interface HighlightDao {
     @Query("SELECT * FROM highlights WHERE goal_id = :goalId")
     fun getByGoal(goalId: Int): LiveData<List<Highlight>>
 
-    @Query("SELECT * FROM highlights WHERE date(datetime(created / 1000, 'unixepoch', 'utc')) = date('now')")
+    @Query("SELECT * FROM highlights WHERE date(created) = date('now')")
     fun getToday(): LiveData<Highlight>
 
     @Query("UPDATE highlights SET status = 'COMPLETED' WHERE id = :highlightId")

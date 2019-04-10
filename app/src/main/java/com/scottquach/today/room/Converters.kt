@@ -7,13 +7,13 @@ import java.util.*
 
 class Converters {
     @TypeConverter
-    fun fromTimestamp(value: Int?): Date? {
-        return value?.let { Date(it.toLong()) }
+    fun toDateTime(value: String): DateTime {
+        return DateTime(value)
     }
 
     @TypeConverter
-    fun dateToTimestamp(date: Date?): Long? {
-        return DateTime().millis
+    fun fromDateTime(date: DateTime): String {
+        return date.toString()
     }
 
     @TypeConverter

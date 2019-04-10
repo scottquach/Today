@@ -47,7 +47,7 @@ class HomeViewModel : ViewModel() {
 
     init {
         allHighlights.addSource(_allHighlights) {
-
+            Timber.d(it.toString())
             if (todaysHighlight.value?.status == HighlightStatus.PENDING) {
                 allHighlights.value = it.drop(1)
             } else {
