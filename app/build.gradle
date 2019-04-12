@@ -62,10 +62,12 @@ dependencies {
     // RxJava2 support
     implementation "android.arch.work:work-rxjava2:$work_version"
 
+    implementation 'com.facebook.stetho:stetho:1.5.1'
+
 
     implementation 'com.jakewharton.timber:timber:4.7.1'
 
-    debugImplementation 'com.amitshekhar.android:debug-db:1.0.4'
+//    debugImplementation 'com.amitshekhar.android:debug-db:1.0.4'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.1'

@@ -1,7 +1,7 @@
 package com.scottquach.today
 
 import android.app.Application
-import com.amitshekhar.DebugDB
+import com.facebook.stetho.Stetho
 import com.scottquach.today.notifications.CompletedReminderReceiver
 import com.scottquach.today.notifications.EntryReminderReceiver
 import com.scottquach.today.settings.SettingsRepository
@@ -31,7 +31,8 @@ class TodayApp: Application() {
         JodaTimeAndroid.init(this)
         prefs = PrefUtil(this)
         Timber.plant(DebugTree())
-        Timber.d(DebugDB.getAddressLog())
+//        Timber.d(DebugDB.getAddressLog())
+        Stetho.initializeWithDefaults(this)
 
         firstBootCheck()
     }
