@@ -12,6 +12,7 @@ import com.scottquach.today.util.DateFormatterUtil
 import com.scottquach.today.model.HighlightStatus
 import com.scottquach.today.R
 import com.scottquach.today.room.Highlight
+import timber.log.Timber
 
 class OverviewPagerAdapter(val context: Context) : PagerAdapter() {
 
@@ -27,6 +28,10 @@ class OverviewPagerAdapter(val context: Context) : PagerAdapter() {
     }
 
     override fun getCount() = highlights.size
+
+    override fun getItemPosition(`object`: Any): Int {
+        return POSITION_NONE
+    }
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
         val itemView = LayoutInflater.from(context).inflate(R.layout.highlight_overview_item, container, false)

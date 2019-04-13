@@ -20,7 +20,7 @@ class HomeViewModel : ViewModel() {
     val allHighlights = MediatorLiveData<List<Highlight>>()
 
     val todaysHighlight = Transformations.map(repository.todaysHighlight) {
-        Timber.d("$it")
+        Timber.d("Todays highlight was called ${it}")
         if (it != null) {
             val created = DateTime(it.created)
             val isToday = created.toLocalDate() == LocalDate()
@@ -43,14 +43,13 @@ class HomeViewModel : ViewModel() {
 
     init {
         allHighlights.addSource(repository.allHighlights) {
-            Timber.d(it.toString())
+            Timber.d("all highlights add source called")
             if (todaysHighlight.value?.status == HighlightStatus.PENDING) {
                 allHighlights.value = it.drop(1)
             } else {
-                allHighlights.value = it
+                allHighlights.value = repository.allHighlights.value
             }
         }
-        allHighlights.addSource(repository.todaysHighlight) {}
     }
 
     fun completeHighlight() {
