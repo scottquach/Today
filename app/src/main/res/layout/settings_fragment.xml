@@ -52,7 +52,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
-            android:text="Completed Reminder"
+            android:text="@string/header_completed_reminder"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/text_completed_reminder"
@@ -72,7 +72,7 @@
             />
 
     <TextView
-            android:text="Entry Reminder"
+            android:text="@string/header_entry_reminder"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/text_entry_reminder"
@@ -121,7 +121,7 @@
             android:layout_marginTop="8dp"/>
 
     <TextView
-            android:text="Developed with ❤\nby Scott Quach"
+            android:text="@string/developed_by_message"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/textView5"

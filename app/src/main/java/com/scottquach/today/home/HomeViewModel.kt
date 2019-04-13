@@ -16,13 +16,9 @@ class HomeViewModel : ViewModel() {
     }
 
     private val repository: HomeRepository = HomeRepository()
-    private val _events = MutableLiveData<Event<Events>>()
 
-    private val _allHighlights = repository.allHighlights
     val allHighlights = MediatorLiveData<List<Highlight>>()
 
-
-    val events = _events as LiveData<Event<Events>>
     val todaysHighlight = Transformations.map(repository.todaysHighlight) {
         Timber.d("$it")
         if (it != null) {
@@ -46,7 +42,7 @@ class HomeViewModel : ViewModel() {
     }
 
     init {
-        allHighlights.addSource(_allHighlights) {
+        allHighlights.addSource(repository.allHighlights) {
             Timber.d(it.toString())
             if (todaysHighlight.value?.status == HighlightStatus.PENDING) {
                 allHighlights.value = it.drop(1)
@@ -54,6 +50,7 @@ class HomeViewModel : ViewModel() {
                 allHighlights.value = it
             }
         }
+        allHighlights.addSource(repository.todaysHighlight) {}
     }
 
     fun completeHighlight() {

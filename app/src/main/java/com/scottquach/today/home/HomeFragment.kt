@@ -71,10 +71,6 @@ class HomeFragment : Fragment() {
             offscreenPageLimit = 4
         }
 
-        viewModel.events.observe(viewLifecycleOwner, Observer {
-
-        })
-
         viewModel.todaysHighlight.observe(viewLifecycleOwner, Observer {
             Timber.d("Todays highlight was $it")
             when (it.status) {

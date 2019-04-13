@@ -8,13 +8,13 @@ class EntryViewModel : ViewModel() {
 
     private val repository: EntryRepository = EntryRepository()
 
-    val events = repository.events
+    val events = repository.getEvents()
 
     fun createHighlight(entryValue: String) {
         if (entryIsValid(entryValue)) {
             repository.insertNewHighlight(Highlight(entryValue, null))
         } else {
-            Timber.e("entry wasn't valid: ${entryValue}")
+            Timber.e("entry wasn't valid: $entryValue")
         }
     }
 

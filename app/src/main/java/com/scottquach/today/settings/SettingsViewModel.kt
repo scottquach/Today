@@ -12,19 +12,19 @@ import org.joda.time.MutableDateTime
 import timber.log.Timber
 
 class SettingsViewModel(application: Application) : AndroidViewModel(application) {
-    enum class SettingsEvents {
+    enum class SettingsEvent {
         ShowEntryPicker,
         ShowCompletedPicker,
         TimeSet
     }
 
     private val repository: SettingsRepository = SettingsRepository(application)
-    private val _events = MutableLiveData<Event<SettingsEvents>>()
-    val events = _events as LiveData<Event<SettingsEvents>>
+    private val events = MutableLiveData<Event<SettingsEvent>>()
+    fun getEvents() = events as LiveData<Event<SettingsEvent>>
 
     fun entryReminderChecked(isChecked: Boolean) {
         if (isChecked) {
-            _events.value = Event(SettingsEvents.ShowEntryPicker)
+            events.value = Event(SettingsEvent.ShowEntryPicker)
         } else {
             repository.disableReminder(EntryReminderReceiver::class.java)
         }
@@ -33,14 +33,14 @@ class SettingsViewModel(application: Application) : AndroidViewModel(application
 
     fun completeReminderChecked(isChecked: Boolean) {
         if (isChecked) {
-            _events.value = Event(SettingsEvents.ShowCompletedPicker)
+            events.value = Event(SettingsEvent.ShowCompletedPicker)
         } else {
             repository.disableReminder(CompletedReminderReceiver::class.java)
         }
         prefUtil.completedReminderActive = isChecked
     }
 
-    fun timeSet(hourOfDay: Int, minute: Int, type: SettingsEvents) {
+    fun timeSet(hourOfDay: Int, minute: Int, type: SettingsEvent) {
         val time = MutableDateTime().apply {
             this.hourOfDay = hourOfDay
             this.minuteOfHour = minute
@@ -52,15 +52,15 @@ class SettingsViewModel(application: Application) : AndroidViewModel(application
         Timber.d("hourOfday ${hourOfDay} minute ${minute}")
         Timber.d("Time was $time")
         when(type) {
-            SettingsEvents.ShowEntryPicker -> {
+            SettingsEvent.ShowEntryPicker -> {
                 repository.setReminder(time.millis, EntryReminderReceiver::class.java)
                 prefUtil.entryReminderTime = time.millis
-                _events.value = Event(SettingsEvents.TimeSet)
+                events.value = Event(SettingsEvent.TimeSet)
             }
-            SettingsEvents.ShowCompletedPicker -> {
+            SettingsEvent.ShowCompletedPicker -> {
                 repository.setReminder(time.millis, CompletedReminderReceiver::class.java)
                 prefUtil.completedReminderTime = time.millis
-                _events.value = Event(SettingsEvents.TimeSet)
+                events.value = Event(SettingsEvent.TimeSet)
             }
         }
     }

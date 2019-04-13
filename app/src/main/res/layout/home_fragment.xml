@@ -57,7 +57,7 @@
                         android:layout_gravity="start"
                         app:cornerRadius="8dp"
                         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                        android:text="Complete"
+                        android:text="@string/button_complete"
                         android:visibility="visible"/>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
@@ -85,7 +85,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/text_date"/>
 
         <com.google.android.material.button.MaterialButton
-                android:text="Create highlight"
+                android:text="@string/button_create_highlight"
                 android:textColor="@android:color/white"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

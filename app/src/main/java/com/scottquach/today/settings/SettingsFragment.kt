@@ -7,7 +7,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import com.scottquach.today.R
@@ -54,11 +53,11 @@ class SettingsFragment : Fragment() {
             view!!.findNavController().navigate(R.id.action_destination_settings_to_homeFragment)
         }
 
-        viewModel.events.observe(viewLifecycleOwner, Observer {
+        viewModel.getEvents().observe(viewLifecycleOwner, Observer {
             when (it.getContentIfNotHandled()) {
-                SettingsViewModel.SettingsEvents.ShowEntryPicker -> showTimePicker(it.peekContent())
-                SettingsViewModel.SettingsEvents.ShowCompletedPicker -> showTimePicker(it.peekContent())
-                SettingsViewModel.SettingsEvents.TimeSet -> {
+                SettingsViewModel.SettingsEvent.ShowEntryPicker -> showTimePicker(it.peekContent())
+                SettingsViewModel.SettingsEvent.ShowCompletedPicker -> showTimePicker(it.peekContent())
+                SettingsViewModel.SettingsEvent.TimeSet -> {
                     text_entry_time.text = DateFormatterUtil.getTimeHumanFriendly(prefUtil.entryReminderTime)
                     text_completed_time.text = DateFormatterUtil.getTimeHumanFriendly(prefUtil.completedReminderTime)
                     Timber.d("time set")
@@ -67,7 +66,7 @@ class SettingsFragment : Fragment() {
         })
     }
 
-    private fun showTimePicker(type: SettingsViewModel.SettingsEvents) {
+    private fun showTimePicker(type: SettingsViewModel.SettingsEvent) {
         val currentTime = DateTime()
         val timePicker = TimePickerDialog(context, TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
             viewModel.timeSet(hourOfDay, minute, type)

@@ -17,15 +17,14 @@ import timber.log.Timber
  */
 class EntryRepository {
 
-    enum class Events {
+    enum class EntryRepoEvent {
         INSERTED
     }
 
     private val db: AppDatabase = AppDatabase.getInstance(TodayApp.getInstance()!!.applicationContext)
-    private val _events = MutableLiveData<Event<Events>>()
+    private val events = MutableLiveData<Event<EntryRepoEvent>>()
 
-    val events: LiveData<Event<Events>>
-        get() = _events
+    fun getEvents() = events as LiveData<Event<EntryRepoEvent>>
 
     /**
      * Calls the db helper to insert a new highlight into the highlights table. Completed asynchronously with a
@@ -44,7 +43,7 @@ class EntryRepository {
 
                 override fun onComplete() {
                     Timber.d("inserting new highlight completed")
-                    _events.value = Event(Events.INSERTED)
+                    events.value = Event(EntryRepoEvent.INSERTED)
                 }
                 override fun onError(e: Throwable) {
                     Timber.e(e, "Error inserting new highlight")

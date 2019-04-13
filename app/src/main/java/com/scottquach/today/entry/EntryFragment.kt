@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.scottquach.today.R
 import com.scottquach.today.databinding.EntryFragmentBinding
@@ -19,10 +18,6 @@ import timber.log.Timber
  * Provides UI for creating a new highlight and assigning that highlight to a goal
  */
 class EntryFragment : Fragment() {
-
-    companion object {
-        fun newInstance() = EntryFragment()
-    }
 
     private lateinit var viewModel: EntryViewModel
 
@@ -50,7 +45,7 @@ class EntryFragment : Fragment() {
 
         viewModel.events.observe(this, Observer {
             Timber.d("observer called ${it.peekContent()}")
-            if (it.getContentIfNotHandled() == EntryRepository.Events.INSERTED) {
+            if (it.getContentIfNotHandled() == EntryRepository.EntryRepoEvent.INSERTED) {
                 findNavController().navigate(R.id.action_entryFragment_to_homeFragment)
             }
         })
