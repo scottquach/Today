@@ -22,7 +22,7 @@ interface HighlightDao {
 
     @Query("UPDATE highlights SET status = 'COMPLETED' WHERE id = :highlightId")
     fun completeHighlight(highlightId: Int)
-
+    
     @Insert
     fun insert(vararg highlights: Highlight)
 
