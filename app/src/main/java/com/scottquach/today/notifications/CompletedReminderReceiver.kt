@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import com.scottquach.today.R
+import com.scottquach.today.model.HighlightStatus
 import com.scottquach.today.room.AppDatabase
 import com.scottquach.today.room.Highlight
 import io.reactivex.MaybeObserver
@@ -20,12 +21,14 @@ class CompletedReminderReceiver : BroadcastReceiver() {
             .subscribeOn(Schedulers.io())
             .subscribe(object : MaybeObserver<Highlight?> {
                 override fun onSuccess(t: Highlight) {
-                    val notificationService = NotificationService(context)
-                    notificationService.showNotification(
-                        context.getString(R.string.notif_completed_title),
-                        context.getString(R.string.notif_completed_body),
-                        3
-                    )
+                    if (t.status != HighlightStatus.COMPLETED) {
+                        val notificationService = NotificationService(context)
+                        notificationService.showNotification(
+                            context.getString(R.string.notif_completed_title),
+                            context.getString(R.string.notif_completed_body),
+                            3
+                        )
+                    }
                 }
 
                 override fun onComplete() {

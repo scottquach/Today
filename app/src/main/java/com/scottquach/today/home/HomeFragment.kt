@@ -52,7 +52,7 @@ class HomeFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        
+
         text_date.text = DateFormatterUtil.getDayOfWeekHumanFriendly(DateTime())
         button_nav_entry?.setOnClickListener {
             view!!.findNavController().navigate(R.id.action_homeFragment_to_entryFragment)
