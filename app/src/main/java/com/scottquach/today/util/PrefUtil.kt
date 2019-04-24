@@ -26,5 +26,4 @@ class PrefUtil(context: Context) {
     var isFirstBoot: Boolean
     get() = prefs.getBoolean("is_first_boot", true)
     set(value: Boolean) = prefs.edit().putBoolean("is_first_boot", value).apply()
-
 }

@@ -15,11 +15,9 @@ import com.scottquach.today.util.DateFormatterUtil
 import com.scottquach.today.R
 import com.scottquach.today.databinding.HomeFragmentBinding
 import com.scottquach.today.model.HighlightStatus
-import com.scottquach.today.model.TodayModel
 import kotlinx.android.synthetic.main.home_fragment.*
 import org.joda.time.DateTime
 import timber.log.Timber
-import java.util.*
 
 
 class HomeFragment : Fragment() {
@@ -45,8 +43,6 @@ class HomeFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
-        Timber.d("time is ${DateTime().toString()}")
 
         text_date.text = DateFormatterUtil.getDayOfWeekHumanFriendly(DateTime())
         button_nav_entry?.setOnClickListener {
