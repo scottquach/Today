@@ -13,20 +13,11 @@ import androidx.navigation.findNavController
 import androidx.viewpager.widget.ViewPager
 import com.scottquach.today.util.DateFormatterUtil
 import com.scottquach.today.R
-import com.scottquach.today.TodayApp
 import com.scottquach.today.databinding.HomeFragmentBinding
 import com.scottquach.today.model.HighlightStatus
-import com.scottquach.today.model.TodayModel
-import com.scottquach.today.room.AppDatabase
-import com.scottquach.today.room.Highlight
-import io.reactivex.*
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposable
-import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.home_fragment.*
 import org.joda.time.DateTime
 import timber.log.Timber
-import java.util.*
 
 
 class HomeFragment : Fragment() {

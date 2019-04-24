@@ -15,7 +15,7 @@ import timber.log.Timber
 
 class CompletedReminderReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
-        val db: AppDatabase = AppDatabase.getInstance(context);
+        val db: AppDatabase = AppDatabase.getInstance(context)
         db.highlightDao().getTodayHard()
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
