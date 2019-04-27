@@ -23,6 +23,14 @@ class PrefUtil(context: Context) {
     get() = prefs.getBoolean("completed_reminder_active", false)
     set(value: Boolean) = prefs.edit().putBoolean("completed_reminder_active", value).apply()
 
+    var midDayreminderTime: Long
+    get() = prefs.getLong("mid_day_reminder_time", Date().time)
+    set(value) = prefs.edit().putLong("mid_day_reminder_time", value).apply()
+
+    var midDayReminderActive: Boolean
+    get() = prefs.getBoolean("mid_day_reminder_active", false)
+    set(value: Boolean) = prefs.edit().putBoolean("mid_day_reminder_active", value).apply()
+
     var isFirstBoot: Boolean
     get() = prefs.getBoolean("is_first_boot", true)
     set(value: Boolean) = prefs.edit().putBoolean("is_first_boot", value).apply()
