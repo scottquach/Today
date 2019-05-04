@@ -3,12 +3,11 @@ package com.scottquach.today
 import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.BroadcastReceiver
-import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
 import com.scottquach.today.notifications.CompletedReminderReceiver
 import com.scottquach.today.notifications.EntryReminderReceiver
+import com.scottquach.today.notifications.MidDayReminderReceiver
 
 class BootReceiver : BroadcastReceiver() {
 
@@ -31,6 +30,16 @@ class BootReceiver : BroadcastReceiver() {
                     prefUtil.completedReminderTime,
                     AlarmManager.INTERVAL_DAY,
                     Intent(context, CompletedReminderReceiver::class.java).let {
+                        PendingIntent.getBroadcast(context, 0, it, 0)
+                    }
+                )
+            }
+            if (prefUtil.midDayReminderActive) {
+                alarmManager.setRepeating(
+                    AlarmManager.RTC_WAKEUP,
+                    prefUtil.midDayreminderTime,
+                    AlarmManager.INTERVAL_DAY,
+                    Intent(context, MidDayReminderReceiver::class.java).let {
                         PendingIntent.getBroadcast(context, 0, it, 0)
                     }
                 )

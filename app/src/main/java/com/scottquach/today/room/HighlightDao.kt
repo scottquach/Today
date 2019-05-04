@@ -5,6 +5,7 @@ import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
+import io.reactivex.Maybe
 
 @Dao
 interface HighlightDao {
@@ -19,6 +20,9 @@ interface HighlightDao {
 
     @Query("SELECT * FROM highlights WHERE date(created, 'localtime') = date('now', 'localtime')")
     fun getToday(): LiveData<Highlight>
+
+    @Query("SELECT * FROM highlights WHERE date(created, 'localtime') = date('now', 'localtime')")
+    fun getTodayHard(): Maybe<Highlight?>
 
     @Query("UPDATE highlights SET status = 'COMPLETED' WHERE id = :highlightId")
     fun completeHighlight(highlightId: Int)

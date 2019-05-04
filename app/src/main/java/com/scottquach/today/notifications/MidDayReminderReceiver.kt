@@ -13,8 +13,8 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
 
-class CompletedReminderReceiver : BroadcastReceiver() {
-    override fun onReceive(context: Context, intent: Intent) {
+class MidDayReminderReceiver: BroadcastReceiver() {
+    override fun onReceive(context: Context, intent: Intent?) {
         val db: AppDatabase = AppDatabase.getInstance(context)
         db.highlightDao().getTodayHard()
             .observeOn(AndroidSchedulers.mainThread())
@@ -24,8 +24,8 @@ class CompletedReminderReceiver : BroadcastReceiver() {
                     if (t.status != HighlightStatus.COMPLETED) {
                         val notificationService = NotificationService(context)
                         notificationService.showNotification(
-                            context.getString(R.string.notif_completed_title),
-                            context.getString(R.string.notif_completed_body),
+                            "Focus on ${t.value}",
+                            context.getString(R.string.notif_mid_day_reminder),
                             3
                         )
                     }
