@@ -38,8 +38,10 @@ class SettingsFragment : Fragment() {
 
         switch_entry_reminder.isChecked = prefUtil.entryReminderActive
         switch_completed_reminder.isChecked = prefUtil.completedReminderActive
+        switch_mid_day_switch.isChecked = prefUtil.midDayReminderActive
         text_entry_time.text = DateFormatterUtil.getTimeHumanFriendly(prefUtil.entryReminderTime)
         text_completed_time.text = DateFormatterUtil.getTimeHumanFriendly(prefUtil.completedReminderTime)
+        text_mid_day_time.text = DateFormatterUtil.getTimeHumanFriendly(prefUtil.midDayreminderTime)
 
         switch_entry_reminder.setOnCheckedChangeListener { buttonView, isChecked ->
             viewModel.entryReminderChecked(isChecked)
@@ -47,6 +49,10 @@ class SettingsFragment : Fragment() {
 
         switch_completed_reminder.setOnCheckedChangeListener { buttonView, isChecked ->
             viewModel.completeReminderChecked(isChecked)
+        }
+
+        switch_mid_day_switch.setOnCheckedChangeListener { buttonView, isChecked ->
+            viewModel.midDayReminderChecked(isChecked)
         }
 
         button_back.setOnClickListener {
@@ -57,9 +63,11 @@ class SettingsFragment : Fragment() {
             when (it.getContentIfNotHandled()) {
                 SettingsViewModel.SettingsEvent.ShowEntryPicker -> showTimePicker(it.peekContent())
                 SettingsViewModel.SettingsEvent.ShowCompletedPicker -> showTimePicker(it.peekContent())
+                SettingsViewModel.SettingsEvent.ShowMidDayPicker -> showTimePicker(it.peekContent())
                 SettingsViewModel.SettingsEvent.TimeSet -> {
                     text_entry_time.text = DateFormatterUtil.getTimeHumanFriendly(prefUtil.entryReminderTime)
                     text_completed_time.text = DateFormatterUtil.getTimeHumanFriendly(prefUtil.completedReminderTime)
+                    text_mid_day_time.text = DateFormatterUtil.getTimeHumanFriendly(prefUtil.midDayreminderTime)
                     Timber.d("time set")
                 }
             }

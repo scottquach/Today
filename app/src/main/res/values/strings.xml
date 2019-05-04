@@ -26,6 +26,7 @@
     <string name="header_completed_reminder">Completed Reminder</string>
     <string name="header_entry_reminder">Entry Reminder</string>
     <string name="developed_by_message">Developed with ❤\n by Scott Quach</string>
+    <string name="notif_mid_day_reminder">Just a reminder so you don\'t lose focus</string>
 
     <string-array name="new_entry_placeholders">
         <item>Read 2 chapters of Moby Dick</item>

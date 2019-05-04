@@ -35,6 +35,8 @@
         <receiver
                 android:name=".notifications.EntryReminderReceiver"
                 android:enabled="true"/>
+        <receiver android:name=".notifications.MidDayReminderReceiver"
+                  android:enabled="true"/>
     </application>
 
 </manifest>

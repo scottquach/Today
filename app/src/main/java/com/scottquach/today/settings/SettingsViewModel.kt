@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import com.scottquach.today.model.Event
 import com.scottquach.today.notifications.CompletedReminderReceiver
 import com.scottquach.today.notifications.EntryReminderReceiver
+import com.scottquach.today.notifications.MidDayReminderReceiver
 import com.scottquach.today.prefUtil
 import org.joda.time.MutableDateTime
 import timber.log.Timber
@@ -15,6 +16,7 @@ class SettingsViewModel(application: Application) : AndroidViewModel(application
     enum class SettingsEvent {
         ShowEntryPicker,
         ShowCompletedPicker,
+        ShowMidDayPicker,
         TimeSet
     }
 
@@ -40,6 +42,15 @@ class SettingsViewModel(application: Application) : AndroidViewModel(application
         prefUtil.completedReminderActive = isChecked
     }
 
+    fun midDayReminderChecked(isChecked: Boolean) {
+        if (isChecked) {
+            events.value = Event(SettingsEvent.ShowMidDayPicker)
+        } else {
+            repository.disableReminder(MidDayReminderReceiver::class.java)
+        }
+        prefUtil.midDayReminderActive = isChecked
+    }
+
     fun timeSet(hourOfDay: Int, minute: Int, type: SettingsEvent) {
         val time = MutableDateTime().apply {
             this.hourOfDay = hourOfDay
@@ -60,6 +71,11 @@ class SettingsViewModel(application: Application) : AndroidViewModel(application
             SettingsEvent.ShowCompletedPicker -> {
                 repository.setReminder(time.millis, CompletedReminderReceiver::class.java)
                 prefUtil.completedReminderTime = time.millis
+                events.value = Event(SettingsEvent.TimeSet)
+            }
+            SettingsEvent.ShowMidDayPicker -> {
+                repository.setReminder(time.millis, MidDayReminderReceiver::class.java)
+                prefUtil.midDayreminderTime = time.millis
                 events.value = Event(SettingsEvent.TimeSet)
             }
         }
